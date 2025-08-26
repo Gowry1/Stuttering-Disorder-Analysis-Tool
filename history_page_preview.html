@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced History Page Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .icon { width: 20px; height: 20px; }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Page Header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-3">Recording History</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                View and compare your previous voice recordings and analysis results.
+                Track changes in your voice patterns over time.
+            </p>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Summary</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="text-2xl font-bold text-gray-900">12</div>
+                        <div class="text-sm text-gray-500">Total Recordings</div>
+                    </div>
+                    <div class="text-center p-4 bg-red-50 rounded-lg">
+                        <div class="text-2xl font-bold text-red-600">3</div>
+                        <div class="text-sm text-gray-500">High Risk</div>
+                    </div>
+                    <div class="text-center p-4 bg-orange-50 rounded-lg">
+                        <div class="text-2xl font-bold text-orange-600">5</div>
+                        <div class="text-sm text-gray-500">Moderate Risk</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <div class="text-2xl font-bold text-green-600">4</div>
+                        <div class="text-sm text-gray-500">Low Risk</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <div class="text-sm text-gray-500">Average Confidence</div>
+                    <div class="text-lg font-semibold text-gray-900">87.3%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recording History -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Recording History</h2>
+                
+                <div class="space-y-6">
+                    <!-- Date Group: Today -->
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <svg class="icon text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <h3 class="text-lg font-medium text-gray-700">Aug 26, 2025</h3>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <!-- High Risk Recording -->
+                            <div class="border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                                <!-- Header Section -->
+                                <div class="flex items-center p-4">
+                                    <div class="mr-4">
+                                        <div class="p-2 bg-red-100 rounded-full">
+                                            <svg class="h-6 w-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 19.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900 text-lg">NORMAL</h4>
+                                                <div class="text-sm text-gray-500">High Risk • Normal: 95%</div>
+                                            </div>
+                                            
+                                            <div class="flex items-center text-gray-500">
+                                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <span class="text-sm">03:17 PM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Details Section -->
+                                <div class="px-4 pb-4">
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                        <!-- Recording Duration -->
+                                        <div class="flex items-center">
+                                            <svg class="h-4 w-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                                            </svg>
+                                            <div>
+                                                <div class="text-gray-500">Duration</div>
+                                                <div class="font-medium">8s</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Confidence Score -->
+                                        <div class="flex items-center">
+                                            <svg class="h-4 w-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                            </svg>
+                                            <div>
+                                                <div class="text-gray-500">Confidence</div>
+                                                <div class="font-medium">92.5%</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Total Predictions -->
+                                        <div class="flex items-center">
+                                            <svg class="h-4 w-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                            </svg>
+                                            <div>
+                                                <div class="text-gray-500">Total Count</div>
+                                                <div class="font-medium">15</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Probability -->
+                                        <div class="flex items-center">
+                                            <div class="w-4 h-4 rounded-full bg-gray-400 mr-2"></div>
+                                            <div>
+                                                <div class="text-gray-500">Probability</div>
+                                                <div class="font-medium">85.2%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Voice Features -->
+                                    <div class="mt-4 pt-4 border-t border-gray-100">
+                                        <div class="text-xs text-gray-500 mb-2">Voice Features</div>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                                            <div>
+                                                <div class="text-gray-500">Jitter</div>
+                                                <div class="font-medium">0.0045</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-gray-500">Shimmer</div>
+                                                <div class="font-medium">0.0234</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-gray-500">Harmonicity</div>
+                                                <div class="font-medium">15.67</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-gray-500">Pitch</div>
+                                                <div class="font-medium">142.3 Hz</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Progress Bar -->
+                                    <div class="mt-4">
+                                        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                                            <span>Normal Percentage</span>
+                                            <span>95%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="h-2 rounded-full bg-red-500" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Moderate Risk Recording -->
+                            <div class="border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                                <div class="flex items-center p-4">
+                                    <div class="mr-4">
+                                        <div class="p-2 bg-orange-100 rounded-full">
+                                            <svg class="h-6 w-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 19.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900 text-lg">NORMAL</h4>
+                                                <div class="text-sm text-gray-500">Moderate Risk • Normal: 65%</div>
+                                            </div>
+                                            
+                                            <div class="flex items-center text-gray-500">
+                                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <span class="text-sm">02:45 PM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-4 pb-4">
+                                    <div class="mt-4">
+                                        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                                            <span>Normal Percentage</span>
+                                            <span>65%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            <div class="h-2 rounded-full bg-orange-500" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
