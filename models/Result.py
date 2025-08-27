@@ -7,7 +7,7 @@ import enum
 
 class DiseaseStatusEnum(enum.Enum):
     NORMAL = "NORMAL"
-    DISORDER = "DISORDER"
+    PARKINSON = "PARKINSON"
 
 class Result(db.Model):
     __tablename__ = 'results'
