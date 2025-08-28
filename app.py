@@ -1,12 +1,8 @@
 import traceback
 from functools import wraps
 
-from flask import Flask, render_template, request, jsonify
-import re
-from datetime import datetime
 import time
 
-import jwt  # ✅ this is PyJWT
 
 from utils.jwt_utils import JWTManager
 
@@ -35,15 +31,12 @@ except ImportError as e:
 
 import init_
 
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import flash, redirect, render_template, request, url_for
-from flask import Blueprint, request, jsonify
+
+from flask import  render_template
+from flask import  request
 from models.Result import Result, DiseaseStatusEnum
-from init_ import db
 
 from auth import auth_bp
 from models.User import User
@@ -53,102 +46,6 @@ app.secret_key = '!das6356565h'
 app = init_.create_app()
 CORS(app)
 app.register_blueprint(auth_bp)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/stutteringdisorder'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# db = SQLAlchemy(app)
-# login_manager = LoginManager(app)
-#
-# class Users(db.Model, UserMixin):
-#     __tablename__ = 'users'
-#
-#     UserID = db.Column(db.Integer, primary_key=True)
-#     Username = db.Column(db.String(255), unique=True, nullable=False)
-#     Password = db.Column(db.String(255), nullable=False)
-#     Email = db.Column(db.String(255), unique=True, nullable=False)
-#     RegistrationDate = db.Column(db.TIMESTAMP, nullable=False, default=datetime.utcnow)
-#
-#     def check_password(self, password):
-#         return check_password_hash(self.Password, password)
-#
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return Users.query.get(int(user_id))
-#
-# @app.route('/', methods=['GET', 'POST'])
-# def login():
-#     if request.method == 'POST':
-#         username = request.form.get('Username')
-#         password = request.form.get('Password')
-#
-#         user = Users.query.filter_by(Username=username).first()
-#
-#         if user and user.check_password(password):
-#        #     login_user(user)
-#             flash('Login successful!', 'success')
-#             return redirect(url_for('LiveMaster'))
-#         else:
-#             flash('Login failed. Please check your username and password.', 'error')
-#
-#     return render_template('login.html')
-#
-# @app.route('/registration', methods=['GET', 'POST'])
-# def registration():
-#     if request.method == 'POST':
-#         try:
-#             username = request.form.get('Username')
-#             password = request.form.get('Password')
-#             email = request.form.get('Email')
-#
-#             # Check if any field is empty
-#             if not username or not password or not email:
-#                 flash('Please fill in all fields.', 'error')
-#                 return redirect(url_for('registration'))
-#
-#             # Check password strength
-#             if len(password) < 8:
-#                 flash('Password must be at least 8 characters long.', 'error')
-#                 return redirect(url_for('registration'))
-#             elif not re.match(r'^(?=.*[A-Za-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', password):
-#                 flash('Password must contain at least one letter and one symbol.', 'error')
-#                 return redirect(url_for('registration'))
-#
-#             # Check if username is unique
-#             existing_user = Users.query.filter_by(Username=username).first()
-#             if existing_user:
-#                 flash('Username already exists. Please choose a different username.', 'error')
-#                 return redirect(url_for('registration'))
-#
-#             # Check if email is unique
-#             existing_email = Users.query.filter_by(Email=email).first()
-#             if existing_email:
-#                 flash('Email address already exists. Please use a different email.', 'error')
-#                 return redirect(url_for('registration'))
-#
-#             # Hash the password
-#             hashed_password = generate_password_hash(password, method='sha256')
-#
-#             user_data = {
-#                 'Username': username,
-#                 'Password': hashed_password,
-#                 'Email': email,
-#                 'RegistrationDate': datetime.now(),
-#             }
-#
-#             new_user = Users(**user_data)
-#             db.session.add(new_user)
-#             db.session.commit()
-#             flash('Registered successfully!', 'success')
-#             return redirect(url_for('registration'))
-#
-#         except Exception as e:
-#             db.session.rollback()  # Roll back the session to prevent saving erroneous data
-#             flash(f'Error registering user: {e}', 'error')
-#
-#     return render_template('registration.html')
-#
-#
-
 
 # Live Master-------------------------------------------------------------------------------------
 # Additional imports are handled at the top of the file with optional imports
@@ -172,7 +69,7 @@ mono_output_filename = os.path.join(app.root_path, "static/mono_output.wav")
 
 
 def start_audio_recording(sample_rate=44100, channels=1):
-    """Start audio recording and return stream object"""
+
     if not AUDIO_RECORDING_AVAILABLE:
         raise Exception("Audio recording dependencies not available. Please install pyaudio.")
 
@@ -190,7 +87,7 @@ def start_audio_recording(sample_rate=44100, channels=1):
 
 
 def stop_audio_recording_and_save(audio, stream, format, chunk, sample_rate, channels, frames, output_filename):
-    """Stop audio recording and save to file"""
+
     print("Stopping recording...")
 
     # Close and terminate the audio stream
@@ -210,7 +107,7 @@ def stop_audio_recording_and_save(audio, stream, format, chunk, sample_rate, cha
 
 
 def record_audio(output_filename, duration_seconds=3, sample_rate=44100, channels=1):
-    """Legacy function for backward compatibility - records for fixed duration"""
+
     if not AUDIO_RECORDING_AVAILABLE:
         raise Exception("Audio recording dependencies not available. Please install pyaudio.")
 
@@ -292,13 +189,6 @@ def get_features(file):
         feature_matrix = np.array([])
         feature_matrix = np.hstack((chromagram, melspectrogram, mfc_coefficients))
         return feature_matrix
-
-
-@app.route('/system')
-def LiveMaster():
-    selected_message = 'Say:We are studying from last 2 hours '
-    return render_template('LiveMaster.html', prediction=None, selected_message=selected_message)
-
 
 @app.route('/start_recording', methods=['POST'])
 def start_recording():
@@ -395,34 +285,9 @@ current_message_index = 0
 
 from flask import jsonify
 
-# def save_prediction_to_database(user_id, prediction, recording_duration=8.0):
-#     """Save prediction result to database and return statistics"""
-#     try:
-#         # Map prediction to enum
-#         disease_status_str = prediction.upper()
-#         if disease_status_str not in DiseaseStatusEnum.__members__:
-#             disease_status_str = "NORMAL"  # Default fallback
-#
-#         disease_status = DiseaseStatusEnum[disease_status_str]
-#
-#         # Create new result
-#         result = Result(
-#             user_id=user_id,
-#             disease_status=disease_status,
-#             recording_duration=recording_duration
-#         )
-#         db.session.add(result)
-#         db.session.commit()
-#
-#         return result.id
-#     except Exception as e:
-#         db.session.rollback()
-#         print(f"Error saving prediction to database: {e}")
-#         return None
-
 
 def get_user_statistics(user_id):
-    """Get user's prediction statistics from database"""
+
     try:
         # Get all results for the user
         user_results = Result.query.filter_by(user_id=user_id).all()
@@ -658,9 +523,7 @@ if ML_AVAILABLE:
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 loaded_model = joblib.load(model_filename)
-                print(f"✅ Model loaded successfully despite warnings")
         except Exception as critical_error:
-            print(f"❌ Critical error: Could not load model: {critical_error}")
             loaded_model = None
 
 # Define the emotion labels
@@ -770,21 +633,6 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
 
     return decorated
-
-
-# Protected route example - you can add more protected routes here
-# @app.route('/protected-example', methods=['GET'])
-# @token_required
-# def protected_example(current_user):
-#     return jsonify({
-#         'message': f'Hello {current_user.username}!',
-#         'user_id': current_user.id
-#     })
-
-
-
-
-
 
 
 if __name__ == '__main__':

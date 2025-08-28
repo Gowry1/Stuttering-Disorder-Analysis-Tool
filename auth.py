@@ -2,12 +2,9 @@ from flask import Blueprint, request, jsonify, current_app
 from flask_bcrypt import check_password_hash
 
 from init_ import db, bcrypt
-import jwt
-import datetime
 
 from models.Result import DiseaseStatusEnum, Result
 from models.User import User
-from models.RefreshToken import RefreshToken
 from utils.jwt_utils import JWTManager
 
 
@@ -319,57 +316,6 @@ def save_result():
         db.session.rollback()
         print("Save result error:", e)
         return jsonify({"error": "Server error"}), 500
-
-
-@auth_bp.route('/user-result/<int:user_id>', methods=['GET'])
-def get_user_with_results(user_id):
-    try:
-        # Get the current user from the token
-        auth_header = request.headers.get('Authorization')
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return jsonify({'message': 'Access token is required'}), 401
-
-        access_token = auth_header.split(' ')[1]
-        current_user = JWTManager.get_user_from_token(access_token)
-
-        if not current_user:
-            return jsonify({'message': 'Invalid or expired token'}), 401
-
-        # Users can only access their own results
-        if current_user.id != user_id:
-            return jsonify({"error": "Access denied. You can only view your own results."}), 403
-
-        user = User.query.get(user_id)
-        if not user:
-            return jsonify({"error": "User not found"}), 404
-
-        result_history = [
-            {
-                "id": r.id,
-                "disease_status": r.disease_status.value,
-                "confidence_score": r.confidence_score,
-                "recording_duration": getattr(r, 'recording_duration', None),
-                "audio_file_path": getattr(r, 'audio_file_path', None),
-                "created_at": r.created_at.strftime('%Y-%m-%d %H:%M:%S')
-            }
-            for r in user.results
-        ]
-
-        return jsonify({
-            "user": {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "full_name": user.full_name,
-                "age": user.age,
-                "gender": user.gender
-            },
-            "results": result_history
-        })
-
-    except Exception as e:
-        print("Get user results error:", e)
-        return jsonify({'message': 'Server error'}), 500
 
 
 # Get current user's results
