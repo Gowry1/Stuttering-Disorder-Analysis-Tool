@@ -395,30 +395,30 @@ current_message_index = 0
 
 from flask import jsonify
 
-def save_prediction_to_database(user_id, prediction, recording_duration=8.0):
-    """Save prediction result to database and return statistics"""
-    try:
-        # Map prediction to enum
-        disease_status_str = prediction.upper()
-        if disease_status_str not in DiseaseStatusEnum.__members__:
-            disease_status_str = "NORMAL"  # Default fallback
-
-        disease_status = DiseaseStatusEnum[disease_status_str]
-
-        # Create new result
-        result = Result(
-            user_id=user_id,
-            disease_status=disease_status,
-            recording_duration=recording_duration
-        )
-        db.session.add(result)
-        db.session.commit()
-
-        return result.id
-    except Exception as e:
-        db.session.rollback()
-        print(f"Error saving prediction to database: {e}")
-        return None
+# def save_prediction_to_database(user_id, prediction, recording_duration=8.0):
+#     """Save prediction result to database and return statistics"""
+#     try:
+#         # Map prediction to enum
+#         disease_status_str = prediction.upper()
+#         if disease_status_str not in DiseaseStatusEnum.__members__:
+#             disease_status_str = "NORMAL"  # Default fallback
+#
+#         disease_status = DiseaseStatusEnum[disease_status_str]
+#
+#         # Create new result
+#         result = Result(
+#             user_id=user_id,
+#             disease_status=disease_status,
+#             recording_duration=recording_duration
+#         )
+#         db.session.add(result)
+#         db.session.commit()
+#
+#         return result.id
+#     except Exception as e:
+#         db.session.rollback()
+#         print(f"Error saving prediction to database: {e}")
+#         return None
 
 
 def get_user_statistics(user_id):
@@ -618,7 +618,7 @@ def stop_recording():
 
         # Save prediction to database and get statistics
         if user_id:
-            save_prediction_to_database(user_id, prediction)
+            # save_prediction_to_database(user_id, prediction)
             stats = get_user_statistics(user_id)
         else:
             # For unauthenticated users, use global statistics
